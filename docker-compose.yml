@@ -1,0 +1,16 @@
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: coinflow-db
+    environment:
+      POSTGRES_USER: coinflow_admin
+      POSTGRES_PASSWORD: coinflow123
+      POSTGRES_DB: coinflow_wallet
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
