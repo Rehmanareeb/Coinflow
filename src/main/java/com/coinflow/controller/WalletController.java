@@ -12,6 +12,8 @@ import com.coinflow.dto.WalletRequest;
 import com.coinflow.entity.Wallet;
 import com.coinflow.service.WalletService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/api/wallets")
 public class WalletController {
@@ -32,7 +34,7 @@ public class WalletController {
     }
 
     @PostMapping("/transfer")
-    public String transferMoney(@RequestBody TransferRequest request) {
+    public String transferMoney(@Valid @RequestBody TransferRequest request) {
         walletService.TransferAmount(
                 request.getSenderId(),
                 request.getReceiverId(),
