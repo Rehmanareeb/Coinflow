@@ -35,7 +35,7 @@ public class WalletController {
 
     @PostMapping("/transfer")
     public String transferMoney(@Valid @RequestBody TransferRequest request) {
-        walletService.TransferAmount(
+        walletService.transferAmount(
                 request.getSenderId(),
                 request.getReceiverId(),
                 request.getAmount());

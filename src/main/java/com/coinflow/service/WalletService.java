@@ -1,6 +1,7 @@
 package com.coinflow.service;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 import com.coinflow.entity.Wallet;
 
@@ -36,9 +37,9 @@ public class WalletService {
 	}
 
 	@Transactional
-	public void TransferAmount(Long SenderId, Long ReceiverId, BigDecimal amount) {
-		Wallet sender = this.getWalletById(SenderId);
-		Wallet receiver = this.getWalletById(ReceiverId);
+	public void transferAmount(Long senderId, Long receiverId, BigDecimal amount) {
+		Wallet sender = this.getWalletById(senderId);
+		Wallet receiver = this.getWalletById(receiverId);
 
 		if (sender.getBalance().compareTo(amount) < 0) {
 			throw new RuntimeException("Insufficient balance");
@@ -52,7 +53,7 @@ public class WalletService {
 		receipt.setSenderWalletId(sender.getId());
 		receipt.setReceiverWalletId(receiver.getId());
 		receipt.setAmount(amount);
-
+		receipt.setTimestamp(LocalDateTime.now());
 		transactionRepository.save(receipt);
 
 	}
