@@ -1,0 +1,24 @@
+package com.coinflow.entity;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.*;
+import jakarta.persistence.Table;
+import lombok.Data;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+
+@Entity
+@Data
+@Table(name = "transactions")
+public class Transaction {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private Long senderWalletId, receiverWalletId;
+    private BigDecimal amount;
+
+    private LocalDateTime timestamp;
+}
