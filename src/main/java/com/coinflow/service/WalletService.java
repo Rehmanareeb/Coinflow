@@ -34,7 +34,7 @@ public class WalletService {
 				.orElseThrow(() -> new RuntimeException("User not found"));
 
 		Wallet wallet = new Wallet();
-		wallet.setOwnerName("User#" + userId);
+		wallet.setUser(user);
 		wallet.setBalance(initialBalance);
 
 		return walletRepository.save(wallet);
