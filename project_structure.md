@@ -11,9 +11,10 @@ java/
         │
         ├── repository/                    # THE STORAGE
         │   └── WalletRepository.java
-        │
+        │   └──TransactionRepository.java
         ├── entity/                        # THE DATA MODELS
-        │   └── Wallet.java                # Maps to DB table
+        │   └── Wallet.java
+            └── Transaction.java                # Maps to DB table
         │
         └── dto/                           # THE DATA PACKETS
             └── TransferRequest.java       # JSON format

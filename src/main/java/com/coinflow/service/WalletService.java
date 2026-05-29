@@ -2,6 +2,7 @@ package com.coinflow.service;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import com.coinflow.entity.Wallet;
 
@@ -9,7 +10,9 @@ import org.springframework.stereotype.Service;
 
 import com.coinflow.repository.WalletRepository;
 import com.coinflow.repository.TransactionRepository;
+import com.coinflow.repository.UserRepository;
 import com.coinflow.entity.Transaction;
+import com.coinflow.entity.User;
 
 import jakarta.transaction.Transactional;
 
@@ -17,17 +20,22 @@ import jakarta.transaction.Transactional;
 public class WalletService {
 	private final WalletRepository walletRepository;
 	private final TransactionRepository transactionRepository;
+	private final UserRepository userRepository;
 
-	public WalletService(WalletRepository walletRepository, TransactionRepository transactionRepository) {
+	public WalletService(WalletRepository walletRepository, TransactionRepository transactionRepository,
+			UserRepository userRepository) {
 		this.walletRepository = walletRepository;
 		this.transactionRepository = transactionRepository;
+		this.userRepository = userRepository;
 	}
 
-	public Wallet create(String ownerName, BigDecimal initialBalance) {
+	public Wallet create(Long userId, BigDecimal initialBalance) {
+		User user = userRepository.findById(userId)
+				.orElseThrow(() -> new RuntimeException("User not found"));
+
 		Wallet wallet = new Wallet();
-		wallet.setOwnerName(ownerName);
+		wallet.setOwnerName("User#" + userId);
 		wallet.setBalance(initialBalance);
-		walletRepository.save(wallet);
 
 		return walletRepository.save(wallet);
 	}
@@ -56,5 +64,9 @@ public class WalletService {
 		receipt.setTimestamp(LocalDateTime.now());
 		transactionRepository.save(receipt);
 
+	}
+
+	public List<Transaction> getTransactionsByWalletId(Long walletId) {
+		return transactionRepository.findBySenderWalletIdOrReceiverWalletId(walletId, walletId);
 	}
 }
