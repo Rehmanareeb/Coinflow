@@ -1,6 +1,6 @@
 # Coinflow API
 
-A robust, production-ready REST API for a digital wallet and money transfer system. 
+A Test based REST API for a digital wallet and money transfer system. 
 
 ## What is this project?
 Coinflow is a backend banking engine that allows users to create digital wallets, check their balances, and transfer money securely between accounts. It is built using Java, Spring Boot, and PostgreSQL, and runs containerized via Docker.
